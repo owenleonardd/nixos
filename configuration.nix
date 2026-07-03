@@ -37,12 +37,14 @@
 
     environment.systemPackages = with pkgs; [
       vim
+      tmux
       fuzzel
       wget
       foot
       kitty
       waybar
       git
+      brightnessctl
     ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
