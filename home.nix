@@ -9,10 +9,10 @@
 
   home.packages = [
     pkgs.lua-language-server
-    pkgs.libclang
+    pkgs.clang-tools
     pkgs.pyright
     pkgs.nixd
-    jdt-language-server
+    pkgs.jdt-language-server
   ];
 
   programs.vim = {
@@ -36,6 +36,14 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+
+    plugins = with pkgs.vimPlugins; [
+      oil-nvim
+      nvim-lspconfig
+      vague-nvim
+      blink-cmp
+    ];
+
   };
 
   programs.tmux = {

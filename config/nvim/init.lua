@@ -27,29 +27,29 @@ map("n", "<leader>t", ":below term<CR>i")
 
 map({"n","v"}, "<leader>y", "\"+y")
 
-vim.pack.add({
-	{ src = "https://github.com/ej-shafran/compile-mode.nvim" },
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/vague-theme/vague.nvim" },
-	{ src = "https://github.com/Saghen/blink.cmp",     version = vim.version.range("*") },
-})
+-- vim.pack.add({
+-- 	{ src = "https://github.com/ej-shafran/compile-mode.nvim" },
+-- 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+-- 	{ src = "https://github.com/stevearc/oil.nvim" },
+-- 	{ src = "https://github.com/neovim/nvim-lspconfig" },
+-- 	{ src = "https://github.com/vague-theme/vague.nvim" },
+-- 	{ src = "https://github.com/Saghen/blink.cmp",     version = vim.version.range("*") },
+-- })
 
 --vim.cmd.colorscheme "vscode"
 vim.cmd.colorscheme "vague"
 
-vim.g.compile_mode = {
-	default_command = {
-		c = "cc -o %:r % && ./%:r",
-	},
-	recompile_no_fail = true,
-	bang_expansion = true,
-	focus_compilation_buffer = true,
-}
-
-map("n", "<leader>R", ":below Compile<CR>")
-map("n", "<leader>r", ":below Recompile<CR>")
+-- vim.g.compile_mode = {
+	-- default_command = {
+		-- c = "cc -o %:r % && ./%:r",
+	-- },
+	-- recompile_no_fail = true,
+	-- bang_expansion = true,
+	-- focus_compilation_buffer = true,
+-- }
+-- 
+-- map("n", "<leader>R", ":below Compile<CR>")
+-- map("n", "<leader>r", ":below Recompile<CR>")
 
 vim.diagnostic.config({
 	signs = false,

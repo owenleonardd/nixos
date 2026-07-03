@@ -45,6 +45,8 @@
       waybar
       git
       brightnessctl
+	  gcc
+	  glibc
     ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
