@@ -14,6 +14,8 @@
 
     time.timeZone = "America/Los_Angeles";
 
+    services.tlp.enable = true;
+
     services.printing.enable = true;
     services.pulseaudio.enable = false;
     services.pipewire = {
@@ -41,12 +43,11 @@
       fuzzel
       wget
       foot
-      kitty
       waybar
       git
+	  gh
       brightnessctl
-	  gcc
-	  glibc
+      ripgrep
     ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];

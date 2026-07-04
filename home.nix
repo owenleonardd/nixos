@@ -1,195 +1,235 @@
 { config, pkgs, ... }:
 
 {
-  home.username = "owen";
-  home.homeDirectory = "/home/owen";
-  home.stateVersion = "26.05";
+	home.username = "owen";
+	home.homeDirectory = "/home/owen";
+	home.stateVersion = "26.05";
 
-  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+	home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
-  home.packages = [
-    pkgs.lua-language-server
-    pkgs.clang-tools
-    pkgs.pyright
-    pkgs.nixd
-    pkgs.jdt-language-server
-  ];
+	programs.nixvim = {
+		enable = true;
 
-  programs.vim = {
-    enable = true;
-    settings = {
-      expandtab = true;
-      shiftwidth = 4;
-      tabstop = 4;
-      number = true;
-      relativenumber = true;
-    };
-    extraConfig = ''
-      filetype plugin indent on
-      syntax on
-      set showmatch
-      set smartindent
-      set softtabstop=4
-    '';
-  };
+		globals = {
+			mapleader = " ";
+			maplocalleader = " ";
+		};
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
+		plugins = {
+			oil.enable = true;
+			mini-pick.enable = true;
+		};
 
-    plugins = with pkgs.vimPlugins; [
-      oil-nvim
-      nvim-lspconfig
-      vague-nvim
-      blink-cmp
-    ];
+		opts = {
+			number = true;
+			relativenumber = true;
+			shiftwidth = 4;
+			softtabstop = 4;
+			tabstop = 4;
+			smartindent = true;
+			autoindent = true;
+			showmatch = true;
+		};
 
-  };
+		keymaps = [
+		{
+			mode = "t";
+			key = "<Esc>";
+			action = "<C-\\><C-n>";
+			options = {
+				noremap = true;
+				silent = true;
+			};
+		}
+		{
+			mode = "n";
+			key = "<leader>ff";
+			action = "<cmd>Pick files<CR>";
+			options.desc = "Find files";
+		}
+		{
+			mode = "n";
+			key = "<leader>fg";
+			action = "<cmd>Pick grep_live<CR>";
+			options.desc = "Live grep";
+		}
+		{
+			mode = "n";
+			key = "<leader>fb";
+			action = "<cmd>Pick buffers<CR>";
+			options.desc = "Buffers";
+		}
+		{
+			mode = "n";
+			key = "<leader>fh";
+			action = "<cmd>Pick help<CR>";
+			options.desc = "Help";
+		}
+		];
 
-  programs.tmux = {
-    enable = true;
-    prefix = "C-a";
-    baseIndex = 1;
-    keyMode = "vi";
+			colorschemes.catppuccin.enable = true;
+	};
 
-    extraConfig = ''
-            set -a terminal-features "tmux-256color"
+	programs.vim = {
+		enable = true;
+		settings = {
+			expandtab = true;
+			shiftwidth = 4;
+			tabstop = 4;
+			number = true;
+			relativenumber = true;
+		};
+		extraConfig = ''
+			filetype plugin indent on
+			syntax on
+			set showmatch
+			set smartindent
+			set softtabstop=4
+			'';
+	};
 
-            set -g renumber-windows on
-            set -g mode-keys vi
-            set -g status-position top
-            set -g status-justify absolute-centre
-            set -g status-style "bg=default"
+	programs.tmux = {
+		enable = true;
+		prefix = "C-a";
+		baseIndex = 1;
+		keyMode = "vi";
 
-            set -g window-status-current-style "fg=colour255,bg=default,bold"
-            set -g window-status-separator ""
-            set -g window-status-format "#[fg=colour240]#[default] #I:#W#{?window_flags,#{window_flags},} #[fg=colour240]#[default]"
-            set -g window-status-current-format "#[fg=colour252]#[default] #I:#W#{?window_flags,#{window_flags},} #[fg=colour252]#[default]"
+		extraConfig = ''
+			set -a terminal-features "tmux-256color"
 
-            set -g status-interval 5
-            set -g status-left "#S"
-            set -g status-right ""
+			set -g renumber-windows on
+			set -g mode-keys vi
+			set -g status-position top
+			set -g status-justify absolute-centre
+			set -g status-style "bg=default"
 
-            bind r source-file "~/.config/tmux/tmux.conf"
-            bind b set -g status
-            bind x kill-pane
+			set -g window-status-current-style "fg=colour255,bg=default,bold"
+			set -g window-status-separator ""
+			set -g window-status-format "#[fg=colour240]#[default] #I:#W#{?window_flags,#{window_flags},} #[fg=colour240]#[default]"
+			set -g window-status-current-format "#[fg=colour252]#[default] #I:#W#{?window_flags,#{window_flags},} #[fg=colour252]#[default]"
 
-            bind h select-pane -L
-            bind j select-pane -D
-            bind k select-pane -U
-            bind l select-pane -R
+			set -g status-interval 5
+			set -g status-left "#S"
+			set -g status-right ""
 
-            bind -n M-h select-pane -L
-            bind -n M-j select-pane -D
-            bind -n M-k select-pane -U
-            bind -n M-l select-pane -R
+			bind r source-file "~/.config/tmux/tmux.conf"
+			bind b set -g status
+			bind x kill-pane
 
-            bind -n M-1 select-window -t 1
-            bind -n M-2 select-window -t 2
-            bind -n M-3 select-window -t 3
-            bind -n M-4 select-window -t 4
-            bind -n M-5 select-window -t 5
-            bind -n M-6 select-window -t 6
-            bind -n M-7 select-window -t 7
-            bind -n M-8 select-window -t 8
-            bind -n M-9 select-window -t 9
-    '';
-  };
+			bind h select-pane -L
+			bind j select-pane -D
+			bind k select-pane -U
+			bind l select-pane -R
 
-  programs.foot = {
-    enable = true;
-    settings = {
-      main.font = "monospace:size=14";
-    };
-  };
+			bind -n M-h select-pane -L
+			bind -n M-j select-pane -D
+			bind -n M-k select-pane -U
+			bind -n M-l select-pane -R
 
-  programs.waybar = {
-    enable = true;
+			bind -n M-1 select-window -t 1
+			bind -n M-2 select-window -t 2
+			bind -n M-3 select-window -t 3
+			bind -n M-4 select-window -t 4
+			bind -n M-5 select-window -t 5
+			bind -n M-6 select-window -t 6
+			bind -n M-7 select-window -t 7
+			bind -n M-8 select-window -t 8
+			bind -n M-9 select-window -t 9
+			'';
+	};
 
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 24;
+	programs.foot = {
+		enable = true;
+		settings = {
+			main.font = "monospace:size=14";
+		};
+	};
 
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "hyprland/window" ];
-        modules-right = [ "pulseaudio" "network" "battery" "clock" ];
+	programs.waybar = {
+		enable = true;
 
-        "hyprland/workspaces" = {
-        disable-scroll = true;
-        all-outputs = true;
-        format = "{name}";
-        };
+		settings = {
+			mainBar = {
+				layer = "top";
+				position = "top";
+				height = 24;
 
-        "hyprland/window" = {
-        format = "{}";
-        max-length = 80;
-      };
+				modules-left = [ "hyprland/workspaces" ];
+				modules-center = [ "hyprland/window" ];
+				modules-right = [ "pulseaudio" "network" "battery" "clock" ];
 
-      clock = {
-        format = "{:%a %b %d %H:%M}";
-      };
+				"hyprland/workspaces" = {
+					disable-scroll = true;
+					all-outputs = true;
+					format = "{name}";
+				};
 
-      battery = {
-        format = "BAT {capacity}%";
-      };
+				"hyprland/window" = {
+					format = "{}";
+					max-length = 80;
+				};
 
-      network = {
-        format-wifi = "WIFI {essid}";
-        format-ethernet = "ETH";
-        format-disconnected = "NO NET";
-      };
+				clock = {
+					format = "{:%a %b %d %H:%M}";
+				};
 
-      pulseaudio = {
-        format = "VOL {volume}%";
-        format-muted = "MUTE";
-      };
-    };
-  };
+				battery = {
+					format = "BAT {capacity}%";
+				};
 
-  style = ''
-        * {
-        font-family: monospace;
-        font-size: 13px;
-        border: none;
-        border-radius: 0;
-        min-height: 0;
-        }
+				network = {
+					format-wifi = "WIFI {essid}";
+					format-ethernet = "ETH";
+					format-disconnected = "NO NET";
+				};
 
-        window#waybar {
-        background: #111111;
-        color: #eeeeee;
-        }
+				pulseaudio = {
+					format = "VOL {volume}%";
+					format-muted = "MUTE";
+				};
+			};
+		};
 
-    #workspaces button {
-        padding: 0 8px;
-        color: #bbbbbb;
-        background: transparent;
-        }
+		style = ''
+			* {
+				font-family: monospace;
+				font-size: 13px;
+border: none;
+		border-radius: 0;
+		min-height: 0;
+			}
 
-    #workspaces button.active {
-        color: #ffffff;
-        background: #333333;
-        }
+		window#waybar {
+background: #111111;
+color: #eeeeee;
+		}
 
-    #workspaces button.urgent {
-        color: #ffffff;
-        background: #cc241d;
-        }
+#workspaces button {
+padding: 0 8px;
+color: #bbbbbb;
+background: transparent;
+}
 
-    #window,
-    #clock,
-    #battery,
-    #network,
-    #pulseaudio {
-        padding: 0 8px;
-        }
-  '';
+#workspaces button.active {
+color: #ffffff;
+background: #333333;
+}
+
+#workspaces button.urgent {
+color: #ffffff;
+background: #cc241d;
+}
+
+#window,
+#clock,
+#battery,
+#network,
+#pulseaudio {
+padding: 0 8px;
+}
+'';
 };
 
 home.file.".config/hypr".source = ./config/hypr;
-home.file.".config/nvim".source = ./config/nvim;
-
-
+#home.file.".config/nvim".source = ./config/nvim;
 }

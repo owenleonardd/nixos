@@ -68,14 +68,14 @@ require("oil").setup({
 	skip_confirm_for_simple_edits = true,
 })
 
-require("blink.cmp").setup({
-	keymap = { preset = "super-tab" },
-	fuzzy = { implementation = "prefer_rust" },
-	signature = { enabled = true },
-	completion = {
-		trigger = { show_in_snippet = false },
-		documentation = { auto_show = true },
-	},
-})
+-- require("blink.cmp").setup({
+	-- keymap = { preset = "super-tab" },
+	-- fuzzy = { implementation = "prefer_rust" },
+	-- signature = { enabled = true },
+	-- completion = {
+		-- trigger = { show_in_snippet = false },
+		-- documentation = { auto_show = true },
+	-- },
+-- })
 
 require('vim._core.ui2').enable()

@@ -8,6 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+	nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+	};
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -20,7 +25,12 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 backupFileExtension = "backup";
-                users.owen = ./home.nix;
+                users.owen = {
+					imports = [
+						inputs.nixvim.homeModules.nixvim
+						./home.nix
+					];
+				};
             };
         }
       ];
