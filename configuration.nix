@@ -24,6 +24,7 @@
     };
 
     services.libinput.enable = true;
+	services.hypridle.enable = true;
 
     users.users.owen = {
         isNormalUser = true;
@@ -35,12 +36,15 @@
     };
 
     programs.hyprland.enable = true;
-    programs.firefox.enable = true;
+	programs.thunar.enable = true;
+	programs.xfconf.enable = true;
+
+	services.gvfs.enable = true;
+	services.tumbler.enable = true;
 
     environment.systemPackages = with pkgs; [
       vim
       tmux
-      fuzzel
       wget
       foot
       waybar
@@ -48,6 +52,7 @@
 	  gh
       brightnessctl
       ripgrep
+	  fastfetch
     ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];

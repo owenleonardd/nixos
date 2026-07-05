@@ -7,6 +7,75 @@
 
 	home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
+	programs.bash = {
+		enable = true;
+		shellAliases = {
+			ll = "ls -l";
+			".." = "cd ..";
+		};
+		enableCompletion = true;
+		initExtra = ''
+			if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+				exec start-hyprland
+			fi
+		'';
+	};
+
+	gtk = {
+		enable = true;
+
+		theme = {
+			name = "catppuccin-mocha-blue-standard+normal";
+			package = pkgs.catppuccin-gtk.override {
+				accents = [ "blue" ];
+				size = "standard";
+				tweaks = [ "normal" ];
+				variant = "mocha";
+			};
+		};
+
+		iconTheme = {
+			name = "Papirus-Dark";
+			package = pkgs.papirus-icon-theme;
+		};
+
+		gtk3.extraConfig = {
+			gtk-theme-name = "catppuccin-mocha-blue-standard+normal";
+			gtk-icon-theme-name = "Papirus-Dark";
+			gtk-application-prefer-dark-theme = 1;
+		};
+
+		gtk4.extraConfig = {
+			gtk-theme-name = "catppuccin-mocha-blue-standard+normal";
+			gtk-icon-theme-name = "Papirus-Dark";
+			gtk-application-prefer-dark-theme = 1;
+		};
+	};
+
+	programs.firefox.enable = true;
+
+	programs.fuzzel = {
+		enable = true;
+		settings = {
+			main = {
+				terminal = "${pkgs.foot}/bin/foot";
+			};
+			colors = {
+				background = "1e1e2edd";
+				text = "cdd6f4ff";
+				prompt = "bac2deff";
+				placeholder = "7f849cff";
+				input = "cdd6f4ff";
+				match = "89b4faff";
+				selection = "585b70ff";
+				selection-text = "cdd6f4ff";
+				selection-match = "89b4faff";
+				counter = "7f849cff";
+				border = "89b4faff";
+			};
+		};
+	};
+
 	programs.nixvim = {
 		enable = true;
 
@@ -142,6 +211,77 @@
 		enable = true;
 		settings = {
 			main.font = "monospace:size=14";
+			colors-dark = {
+				cursor = "11111b f5e0dc";
+				foreground = "cdd6f4";
+				background = "1e1e2e";
+
+				regular0 = "45475a";
+				regular1 = "f38ba8";
+				regular2 = "a6e3a1";
+				regular3 = "f9e2af";
+				regular4 = "89b4fa";
+				regular5 = "f5c2e7";
+				regular6 = "94e2d5";
+				regular7 = "bac2de";
+
+				bright0 = "585b70";
+				bright1 = "f38ba8";
+				bright2 = "a6e3a1";
+				bright3 = "f9e2af";
+				bright4 = "89b4fa";
+				bright5 = "f5c2e7";
+				bright6 = "94e2d5";
+				bright7 = "a6adc8";
+
+				"16" = "fab387";
+				"17" = "f5e0dc";
+
+				selection-foreground = "cdd6f4";
+				selection-background = "414356";
+
+				search-box-no-match = "11111b f38ba8";
+				search-box-match = "cdd6f4 313244";
+
+				jump-labels = "11111b fab387";
+				urls = "89b4fa";
+			};
+
+			colors-light = {
+				cursor = "eff1f5 dc8a78";
+				foreground = "4c4f69";
+				background = "eff1f5";
+
+				regular0 = "5c5f77";
+				regular1 = "d20f39";
+				regular2 = "40a02b";
+				regular3 = "df8e1d";
+				regular4 = "1e66f5";
+				regular5 = "ea76cb";
+				regular6 = "179299";
+				regular7 = "acb0be";
+
+				bright0 = "6c6f85";
+				bright1 = "d20f39";
+				bright2 = "40a02b";
+				bright3 = "df8e1d";
+				bright4 = "1e66f5";
+				bright5 = "ea76cb";
+				bright6 = "179299";
+				bright7 = "bcc0cc";
+
+				"16" = "fe640b";
+				"17" = "dc8a78";
+
+				selection-foreground = "4c4f69";
+				selection-background = "ccced7";
+
+				search-box-no-match = "dce0e8 d20f39";
+				search-box-match = "4c4f69 ccd0da";
+
+				jump-labels = "dce0e8 fe640b";
+				urls = "1e66f5";
+			};
 		};
 	};
 
@@ -230,6 +370,6 @@ padding: 0 8px;
 '';
 };
 
-home.file.".config/hypr".source = ./config/hypr;
-#home.file.".config/nvim".source = ./config/nvim;
+home.file.".config/hypr".source = config.lib.file.mkOutOfStoreSymlink
+	"${config.home.homeDirectory}/dotfiles/config/hypr";
 }

@@ -24,7 +24,7 @@ hl.monitor({
 -------------------
 
 local terminal = "foot"
-local fileManager = "dolphin"
+local fileManager = "thunar"
 local menu = "fuzzel"
 local browser = "firefox"
 
@@ -111,7 +111,7 @@ hl.config({
   },
 
   animations = {
-    enabled = true,
+    enabled = false,
   },
 
   dwindle = {
@@ -129,6 +129,13 @@ hl.config({
     force_default_wallpaper = 0,
     disable_hyprland_logo = true,
     background_color = 0x000000,
+	disable_splash_rendering = true,
+	vrr = 1,
+  },
+
+  ecosystem = {
+	  no_update_news = true,
+	  no_donation_nag = true,
   },
 })
 
