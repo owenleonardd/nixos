@@ -5,6 +5,10 @@
 	home.homeDirectory = "/home/owen";
 	home.stateVersion = "26.05";
 
+	home.packages = with pkgs; [
+		prismlauncher
+	];
+
 	home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
 	programs.bash = {
